@@ -1,5 +1,5 @@
 # SoftwareDesign
-COSC 3353 Project - software application that will predict the rate of the fuel.
+COSC 4353 Project - software application that will predict the rate of the fuel.
 
 Description: 
 A partner of your company has requested to build a software application that will predict the rate of the fuel based on the following criteria:
