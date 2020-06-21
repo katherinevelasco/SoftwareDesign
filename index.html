@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+<style>
+
+h1 {text-align: center;
+	color: rgb(248,199,109)}
+
+h3 {text-align: right;}
+
+p {text-align: center;}
+
+table {
+  font-family: arial, sans-serif;
+ 
+  width: 200%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(248,199,109);
+}
+
+
+.ui-tabs.ui-tabs-vertical {
+    padding: 2em;
+    width: 42em;
+	font-size: 16px;
+	}
+
+.ui-tabs.ui-tabs-vertical .ui-widget-header {
+    border: none;
+
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav {
+    float: left;
+    width: 10em;
+    background: rgb(248,199,109);
+    border-radius: 8px 0 0 8px;
+    border-right: 1px solid gray;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+    clear: left;
+    width: 100%;
+    margin: 1em 0;
+   
+    overflow: hidden;
+    position: relative;
+    right: -2px;
+    z-index: 3;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a {
+    display: block;
+    width: 100%;
+    padding: 1em 1em;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a:hover {
+    cursor: pointer;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0.5em;
+    padding-bottom: 0;
+    border-right: 5px solid white;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
+    margin-bottom: 10px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-panel {
+    float: left;
+    width: 25em;
+   
+    position: relative;
+    left: -1px;
+}
+
+</style>
+</head>
+<body>
+
+<h1> Company Name TBA </h1>
+
+<div id="tabs">
+    <ul>
+        <li>
+            <a href="#a">Home</a>
+        </li>
+        <li>
+            <a href="#b">My Profile</a>
+        </li>
+        <li>
+            <a href="#c">Fuel Quote Form</a>
+        </li>
+        <li>
+            <a href="#d">Fuel Quote History</a>
+        </li>
+	<li>
+            <a href="#e">Logout</a>
+        </li>
+    </ul>
+
+
+    <div id="a">
+       <h3>Home</h3>
+       <p>           Hello! Welcome to your page. </p>
+       <p>           Click on the tabs to access your information </p>
+       
+    </div>
+    <div id="b">
+        <h3>My Profile</h3>
+            <table border = "1" cellpadding = "10">
+                <tr>
+                    <th>
+                        Full Name: <br> (50 characters, required) 
+                        <th>
+                            <input type ="text" id = fname name = "fname">
+                        </th>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        Address 1: <br> (100 characters, required) 
+                        <th>
+                            <input type ="text" id = add1 name = "add1">
+                        </th>
+                    </th>
+                </tr>
+
+                <tr>
+                <th>
+                    Address 2: <br> (100 characters, optional) 
+                    <th>
+                        <input type ="text" id = add2 name = "add2">
+                    </th>
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    City: <br> (100 characters, required)
+                    <th>
+                        <input type ="text" id = add1 name = "add1">
+                    </th>
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    State: <br> 
+                    <th>
+                        <select name ="state" id ="state">
+                            <option value = "Alabama">AL (Alabama)</option>
+                            <option value = "Alaska">AK (Alaska)</option>
+                            <option value = "Arizona">AZ (Arizona)</option>
+                            <option value = "Arkansas">AR (Arkansas)</option>
+                            <option value = "California">CA (California)</option>
+                            <option value = "Colorado">CO (Colorado)</option>
+                            <option value = "Connecticut">CT (Connecticut)</option>
+                            <option value = "Delaware">DE (Delaware)</option>
+                            <option value = "Florida">FL (Florida)</option>
+                            <option value = "Georgia">GA (Georgia)</option>
+                            <option value = "Hawaii">HI (Hawaii)</option>
+                            <option value = "Idaho">ID (Idaho)</option>
+                            <option value = "Illinois">IL (Illinois)</option>
+                            <option value = "Indiana">IN (Indiana)</option>
+                            <option value = "Iowa">IA (Iowa)</option>
+                            <option value = "Kansas">KS (Kansas)</option>
+                            <option value = "Kentucky">KY (Kentucky)</option>
+                            <option value = "Lousiana">LA (Louisiana)</option>
+                            <option value = "Maine">ME (Maine)</option>
+                            <option value = "Maryland">MD (Maryland)</option>
+                            <option value = "Massachusetts">MA (Massachusetts</option>
+                            <option value = "Michigan">MI (Michigan)</option>
+                            <option value = "Minessota">MN (Minessota)</option>
+                            <option value = "Mississipi">MS (Mississippi)</option>
+                            <option value = "Missouri">MO (Missouri)</option>
+                            <option value = "Montanta">MT (Montana)</option>
+                            <option value = "Nebraska">NE (Nebraska)</option>
+                            <option value = "Nevada">NV (Nevada)</option>
+                            <option value = "New Hampshire">NH (New Hampshire)</option>
+                            <option value = "New Jersey">NJ (New Jersey)</option>
+                            <option value = "New Mexico">NM (New Mexico)</option>
+                            <option value = "New York">NY (New York)</option>
+                            <option value = "North Carolina">NC (North Carolina)</option>
+                            <option value = "North Dakota">ND (North Dakota)</option>
+                            <option value = "Ohio">OH (Ohio)</option>
+                            <option value = "Oklahoma">OK (Oklahoma)</option>
+                            <option value = "Oregon">OR (Oregon)</option>
+                            <option value = "Pennsylvania">PA (Pennsylvania)</option>
+                            <option value = "Rhode Island">RI (Rhode Island)</option>
+                            <option value = "South Carolina">SC (South Carolina)</option>
+                            <option value = "South Dakota">SD (South Dakota)</option>
+                            <option value = "Tennessee">TN (Tennessee)</option>
+                            <option value = "Texas">TX (Texas)</option>
+                            <option value = "Utah">UT (Utah)</option>
+                            <option value = "Vermont">VT (Vermont)</option>
+                            <option value = "Virginia">VA (Virginia)</option>
+                            <option value = "Washington">WA (Washington)</option>
+                            <option value = "West Virgina">WV (West Virginia)</option>
+                            <option value = "Wisconsin">WI (Wisconsin)</option>
+                            <option value = "Wyoming">WY (Wyoming)</option>
+                    </th>
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    Zipcode: <br> (9 charactes, at least 5 <br> character code required) 
+                    <th>
+                        <input type ="text" id = zp name = "zp">
+                    </th>
+                </th>
+            </tr>
+            </table>
+
+            <br><br>
+            <input type = "submit" value = "Save">
+
+    </div>
+    <div id="c">
+        <h3>Fuel Quote Form</h3>
+        
+        <form>
+
+            &nbsp;&nbsp;Gallons requested* :&nbsp;&nbsp;
+               <input type="number" id="Gallons" name="Gallons" required>
+               <br> <br>
+
+               &nbsp;&nbsp;Delivery Address: <br>&nbsp;&nbsp;
+               <textarea name="message" rows="5" cols="30">
+               </textarea>
+               <br><br>
+
+               &nbsp;&nbsp;Delivery date: <br>&nbsp;&nbsp;
+               <input type = "date" id= "delivery date">
+               <br> <br>
+
+               &nbsp;&nbsp;<label for="suggested price">Suggested Price:</label>&nbsp;&nbsp;
+               
+               &nbsp;&nbsp;<textarea name="Suggested Price" rows="1" cols="4">
+
+               </textarea> <br> <br>
+
+               &nbsp;&nbsp;<label for="amount due">Total Amount due:</label> <br>
+               &nbsp;&nbsp;<textarea id ="amount due" rows="4" cols="30">Amount due will be calculated as suggested price per gallon* gallons required when the pricing module is ready!
+               
+               
+               </textarea>
+
+
+               <br> <br> <input type="submit" value="Submit">
+           </form>
+
+
+
+          
+        
+        
+    </div>
+    <div id="d">
+        
+	 <h3>Fuel Quote History</h3>
+	
+	<table>
+  <tr>
+    <th>Client Name</th>
+    <th>Date</th>
+    <th>Number of Gallons</th>
+	<th>Suggested Price </th>
+	<th>Total Due</th>
+	<th>Delivery Adress</th>
+  </tr>
+  <tr>
+    <td>Alfred Futterkiste</td>
+    <td>06/07/2020</td>
+    <td>50</td>
+	<td>$1 per Gallon</td>
+    <td>$50</td>
+    <td>3030 Dunvale Rd Houston, TX 77063</td>
+  </tr>
+  <tr>
+   <td>Maria Rios</td>
+    <td>05/13/2020</td>
+    <td>100</td>
+	<td>$1 per Gallon</td>
+    <td>$100</td>
+    <td>3030 Dunvale Rd Houston, TX 77063</td>
+  </tr>
+  <tr>
+    <td>Robin Red</td>
+    <td>06/15/2020</td>
+    <td>150</td>
+	<td>$1 per Gallon</td>
+    <td>$150</td>
+    <td>3030 Dunvale Rd Houston, TX 77063</td>
+  </tr>
+  
+</table>
+
+
+    </div>
+	<div id="e">
+        <h3>Logout</h3>
+
+        <b>
+            &nbsp;&nbsp; Click here to log out
+        <a href= "login.html" >LOG OUT </a></b> 
+
+    </div>
+
+</div>
+</body>
+
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $('#tabs')
+        .tabs()
+        .addClass('ui-tabs-vertical ui-helper-clearfix');
+
+  </script>
+
+
+
+
+
+
+
+
+
+
