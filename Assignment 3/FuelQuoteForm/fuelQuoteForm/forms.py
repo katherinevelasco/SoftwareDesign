@@ -1,21 +1,20 @@
 from django import forms
-from django.contrib.auth.models import User
-
+from .models import userFuelForm
 
 class FuelQuoteForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = userFuelForm
         fields = (
-            "Gallons Requested",
-            "Delivery Address",
-            "Delivery Date",
-            "Suggested Price",
-            "Price",
+            "gallsRequested",
+            "deliveryAddress",
+            "deliveryDate",
+            "suggPrice",
+            "total",
         )
 
-        def save(self, commit=True):
-            user = super(FuelQuoteForm, self).save(commit=False)
+    def save(self, commit=True):
+        user = super(FuelQuoteForm, self).save(commit=False)
 
-            if commit:
-                user.save()
-            return user
+        if commit:
+            user.save()
+        return user
