@@ -31,7 +31,8 @@ class EditProfileForm(UserChangeForm):
             'Address1', 
             'Address2', 
             'City', 
-            'State'
+            'State',
+            'Zipcode'
         )
 
 
