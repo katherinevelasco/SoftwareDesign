@@ -11,6 +11,8 @@ urlpatterns = [
     path('login/', views.login_request, name= 'login'),
     path('profile/', views.profile, name= 'profile'),
     path('edit_profile/', views.edit_profile, name= 'edit_profile'),
+    path('fuelhistory/', views.fuelhistory, name= 'fuelhistory'),
+    path('fuelform/', views.fqf, name = 'fuelform'),
 
 
 ]
