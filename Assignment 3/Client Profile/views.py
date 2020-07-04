@@ -27,3 +27,7 @@ def edit_profile(request):
     return render(request=request,
                   template_name="accounts/edit_profile.html",
                   context={"form": form})
+
+
+def fuelhistory(request):
+    return render(request, 'accounts/fuelhistory.html')
