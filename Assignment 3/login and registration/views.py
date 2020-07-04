@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.forms import UserCreationForm,  AuthenticationForm , UserChangeForm   
 from django.contrib.auth import logout, authenticate, login
-from .forms import RegistrationForm, EditProfileForm
+from .forms import RegistrationForm, EditProfileForm, FuelQuoteForm
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, UserFuelForm
 
 # Create your views here.
 
@@ -69,7 +69,7 @@ def profile(request):
 
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance = request.user)
+        form = EditProfileForm(request.POST, instance = request.user.userprofile)
     
         if form.is_valid():
             form.save()                   
@@ -79,3 +79,22 @@ def edit_profile(request):
     return render(request = request,
             template_name = "accounts/edit_profile.html",
             context={"form":form})
+
+
+def fqf(request):
+    if request.method == 'POST':
+        form = FuelQuoteForm(request.POST, instance=request.user.userfuelform)
+    
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+    form = FuelQuoteForm(instance=request.user)
+    return render(request=request,
+                  template_name="accounts/fuelform.html",
+                  context={"form": form})
+
+
+def fuelhistory(request):
+    return render(request, 'accounts/fuelhistory.html')
