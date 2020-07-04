@@ -67,6 +67,6 @@ class ClientProfile(models.Model):
     State = models.CharField(max_length=2, choices=STATE_CHOICES, blank=False)
     ZipCode = models.CharField(max_length=9, blank=False)
 
-class FuelQuoteHistory(models.Model):
+class PricingModule(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
