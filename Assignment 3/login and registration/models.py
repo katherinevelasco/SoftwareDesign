@@ -32,7 +32,8 @@ class UserProfile(models.Model):
     Address2 = models.CharField(max_length=100, default='', blank= True)
     City = models.CharField(max_length=100, default='', blank = False)
 
-    State = models.CharField(max_length=5, choices=US_STATES, blank=False) 
+    State = models.CharField(max_length=5, choices=US_STATES, blank=False)
+    Zipcode = models.CharField(max_length=9, blank=False)
   
     def __str__(self):
         return self.user.username
