@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, UserFuelForm
 
 class RegistrationForm(UserCreationForm):
 
@@ -34,16 +34,26 @@ class EditProfileForm(UserChangeForm):
             'State'
         )
 
-    def __init__(self, *args, **kwargs):
-        super(EditProfileForm, self).__init__(*args, **kwargs)
+
     # def save(self, commit=True):
-
-    #     #self.fields['Address2'].required = False
-
     #     user = super(EditProfileForm, self).save(commit=False)
         
     #     if commit:
     #         user.save()
     #     return user
+
+class FuelQuoteForm(forms.ModelForm):
+    class Meta:
+        model = UserFuelForm
+        fields = (
+            "gallsRequested",
+            "deliveryAddress",
+            "test"
+            #"deliveryDate",
+            #"suggPrice",
+            #"total",
+        )
+
+
 
 
