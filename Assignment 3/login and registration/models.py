@@ -20,8 +20,6 @@ class UserProfile(models.Model):
         ('VT', 'Vermont'), ('VA', 'Virginia'), ('WA', 'Washington'), 
         ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming'))                   
 
-
-
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -31,10 +29,8 @@ class UserProfile(models.Model):
     Address1 = models.CharField(max_length=100, default='', blank=False)
     Address2 = models.CharField(max_length=100, default='', blank= True)
     City = models.CharField(max_length=100, default='', blank = False)
-
-    State = models.CharField(max_length=5, choices=US_STATES, blank=False)
-    Zipcode = models.CharField(max_length=9, blank=False)
-  
+    State = models.CharField(max_length=5, choices=US_STATES, blank=False) 
+    Zipcode = models.CharField(max_length=9, blank=False, default='')
     def __str__(self):
         return self.user.username
 
@@ -46,23 +42,17 @@ post_save.connect(create_profile, sender= User)
 
 
 class UserFuelForm(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="related user")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="related user")
     gallsRequested = models.IntegerField('Gallons Requested', default=0)
-    deliveryAddress = models.CharField('Delivery Address', max_length=100, default='')
-    test = models.Address1
-    #deliveryDate = models.DateField('Delivery Date')
-    #suggPrice = models.DecimalField('Suggested Price', decimal_places=2, max_digits=10000)
-    #total = models.DecimalField('Total (Price * Gallons)', decimal_places=2,
-                                #max_digits=10000, default=Decimal('0.0000'))  # total will be calculated by (suggPrice*gallsRequested)
+    deliveryAddress = models.CharField('Delivery Address', max_length=100, default='', blank= True)
+
+    deliveryDate = models.DateField()
+    suggPrice = models.IntegerField('Suggested Price', default=0)
+    total = models.DecimalField('Total (Price * Gallons)', decimal_places=2,
+                                max_digits=10000, default=Decimal('0.0000'))  # total will be calculated by (suggPrice*gallsRequested)
   
     def __str__(self):
         return self.user.username
-        
-    def create_quote(sender, **kwargs):
-        if kwargs['created']:
-           user_quote = UserFuelForm.objects.create(user=kwargs['instance'])
-
-    post_save.connect(create_quote, sender= User)
 
 class PricingModule(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
