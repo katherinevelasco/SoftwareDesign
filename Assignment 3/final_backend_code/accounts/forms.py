@@ -57,6 +57,8 @@ class FuelQuoteForm(forms.ModelForm):
         self.fields['user'].initial = self.user
         self.fields["deliveryAddress"].initial = self.user.userprofile.Address1
         self.fields['deliveryAddress'].disabled = True
+        self.fields['suggPrice'].disabled = True
+        self.fields['total'].disabled = True
 
         
 
