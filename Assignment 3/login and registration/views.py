@@ -49,7 +49,7 @@ def login_request(request):
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
-
+    #get
     form = AuthenticationForm()
     return render(request = request,
                     template_name = "accounts/login.html",
@@ -83,14 +83,15 @@ def edit_profile(request):
 
 def fqf(request):
     if request.method == 'POST':
-        form = FuelQuoteForm(request.POST, instance=request.user.userfuelform)
+        form = FuelQuoteForm(request.POST, user = request.user)
     
-
         if form.is_valid():
             form.save()
             return redirect('profile')
+        else:
+            print("something wrong")
 
-    form = FuelQuoteForm(instance=request.user)
+    form = FuelQuoteForm(user=request.user)
     return render(request=request,
                   template_name="accounts/fuelform.html",
                   context={"form": form})
