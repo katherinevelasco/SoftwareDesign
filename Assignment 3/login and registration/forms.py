@@ -36,12 +36,7 @@ class EditProfileForm(UserChangeForm):
         )
 
 
-    # def save(self, commit=True):
-    #     user = super(EditProfileForm, self).save(commit=False)
-        
-    #     if commit:
-    #         user.save()
-    #     return user
+    
 
 class FuelQuoteForm(forms.ModelForm):
     class Meta:
@@ -49,11 +44,20 @@ class FuelQuoteForm(forms.ModelForm):
         fields = (
             "gallsRequested",
             "deliveryAddress",
-            "test"
-            #"deliveryDate",
-            #"suggPrice",
-            #"total",
+            "deliveryDate",
+            "suggPrice",
+            "total",
+            "user",           
         )
+
+
+    def __init__(self, *args, **kws):
+        self.user = kws.pop('user')
+        super().__init__(*args, **kws)
+        self.fields['user'].initial = self.user
+        self.fields["deliveryAddress"].initial = self.user.userprofile.Address1
+        
+
 
 
 
