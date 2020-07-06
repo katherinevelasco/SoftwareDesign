@@ -49,7 +49,9 @@ class FuelQuoteForm(forms.ModelForm):
             "total",
             "user",           
         )
-
+        widgets = {
+        'deliveryDate': forms.DateInput(format=('%m/%d/%Y'), attrs={ 'placeholder':'Select a date', 'type':'date'}),
+        }   
 
     def __init__(self, *args, **kws):
         self.user = kws.pop('user')
