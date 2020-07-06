@@ -90,7 +90,7 @@ def fqf(request):
             form.save()
             return redirect('profile')
         else:
-            print("something fucked up")
+            print("something up")
 
     form = FuelQuoteForm(user=request.user)
     return render(request=request,
