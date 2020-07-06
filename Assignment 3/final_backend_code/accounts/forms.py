@@ -56,6 +56,9 @@ class FuelQuoteForm(forms.ModelForm):
         super().__init__(*args, **kws)
         self.fields['user'].initial = self.user
         self.fields["deliveryAddress"].initial = self.user.userprofile.Address1
+        self.fields["suggPrice"].initial = 2
+        self.fields["total"].initial = 3.00
+        
         self.fields['deliveryAddress'].disabled = True
         self.fields['suggPrice'].disabled = True
         self.fields['total'].disabled = True
