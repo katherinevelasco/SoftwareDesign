@@ -1,0 +1,36 @@
+{%extends 'base.html' %}
+
+<html>
+    
+        {% block head %}
+        <head>
+            <title>PROFILE</title>
+        </head>
+        {% endblock %}
+
+        {%block body %}
+
+    <div class="jumbotron">
+    <div class="container">
+        
+        <body>
+            <p>
+                Welcome {{user}} <br>
+                your name is {{user.username}} <br>
+                <p>your full name is {{user.userprofile.Full_Name}}!</p>  <br>
+                <p>your address is {{ user.userprofile.Address1}}</address></p> <br>
+                <p> CITY: {{user.userprofile.City}}</p> <br>
+                <p> State : {{user.userprofile.State}}</p> <br>
+
+         
+
+
+            </p>
+        </body>
+    </div>
+    </div>
+        {% endblock %}
+
+
+        
+</html>

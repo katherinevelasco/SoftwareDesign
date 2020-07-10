@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+<style>
+
+h1 {text-align: center;
+	color: rgb(248,199,109)}
+
+h3 {text-align: right;}
+
+p {text-align: center;}
+
+table {
+  font-family: arial, sans-serif;
+ 
+  width: 200%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(248,199,109);
+}
+
+
+.ui-tabs.ui-tabs-vertical {
+    padding: 2em;
+    width: 42em;
+	font-size: 16px;
+	}
+
+.ui-tabs.ui-tabs-vertical .ui-widget-header {
+    border: none;
+
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav {
+    float: left;
+    width: 10em;
+    background: rgb(248,199,109);
+    border-radius: 8px 0 0 8px;
+    border-right: 1px solid gray;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+    clear: left;
+    width: 100%;
+    margin: 1em 0;
+   
+    overflow: hidden;
+    position: relative;
+    right: -2px;
+    z-index: 3;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a {
+    display: block;
+    width: 100%;
+    padding: 1em 1em;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a:hover {
+    cursor: pointer;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0.5em;
+    padding-bottom: 0;
+    border-right: 5px solid white;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
+    margin-bottom: 10px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-panel {
+    float: left;
+    width: 25em;
+   
+    position: relative;
+    left: -1px;
+}
+
+</style>
+</head>
+<body>
+
+
+</div>
+</body>
+
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $('#tabs')
+        .tabs()
+        .addClass('ui-tabs-vertical ui-helper-clearfix');
+
+  </script>
+
+
+
+
+
+
+
+
+
+
