@@ -82,10 +82,6 @@ body {font-family: "Lato", sans-serif;}
 
 <h1> Fuel Quote History form </h1>
 
-
-
-
-
 <table>
     <tr>
       <th>Client Name</th>
@@ -97,19 +93,17 @@ body {font-family: "Lato", sans-serif;}
     </tr>
     <tr>
 
-      <!-- <p>your full name is {{user.userprofile.Full_Name}}!</p>  <br>
-      <p>your address is {{ user.userprofile.Address1}}</address></p> <br>
-      <p> CITY: {{user.userprofile.City}}</p> <br>
-      <p> State : {{user.userprofile.State}}</p> <br> -->
-
-      <td>{{user.clientInfo.Full_Name}}</td>
-      <td>{{user.fuelHistory.deliveryDate}}</td>
-      <td>{{user.fuelHistory.gallsRequested}}</td>
-      <td>$1.50 per Gallon</td>
+    
+      <td>{{user.userprofile.Full_Name}}</td>
+      <td>{{user.userfuelform.deliveryDate}}</td>
+      <td>{{user.userfuelform.gallsRequested}}</td>
+      <td>$1 per Gallon</td>
       <td>$50</td>
-      <td>{{user.clientInfo.Address1}}</td>
+      <td>{{user.userprofile.Address1}}</td>
     </tr>
     <tr>
+
+
     <td>Maria Rios</td>
       <td>05/13/2020</td>
       <td>100</td>

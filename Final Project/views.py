@@ -1,17 +1,15 @@
 from django.shortcuts import render, HttpResponse, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm,  AuthenticationForm , UserChangeForm   
 from django.contrib.auth import logout, authenticate, login
 from .forms import RegistrationForm, EditProfileForm, FuelQuoteForm
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import UserProfile, UserFuelForm
-
+from .models import UserProfile, UserFuelForm, PricingModule
 
 # Create your views here.
 
 def home(request):
     return render(request, 'accounts/home.html')
-
 
 def register(request):
     if request.method == "POST":
@@ -19,7 +17,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-
+            
             login(request, user)
             return redirect('login')
 
@@ -27,15 +25,14 @@ def register(request):
             for msg in form.error_messages:
                 print(form.error_messages[msg])
 
-            return render(request=request,
-                          template_name="accounts/register.html",
-                          context={"form": form})
+            return render(request = request,
+                          template_name = "accounts/register.html",
+                          context={"form":form})
 
     form = RegistrationForm()
-    return render(request=request,
-                  template_name="accounts/register.html",
-                  context={"form": form})
-
+    return render(request = request,
+                  template_name = "accounts/register.html",
+                  context={"form":form})
 
 def login_request(request):
     if request.method == 'POST':
@@ -52,13 +49,12 @@ def login_request(request):
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
-    # get
+    #get
     form = AuthenticationForm()
-    return render(request=request,
-                  template_name="accounts/login.html",
-                  context={"form": form})
+    return render(request = request,
+                    template_name = "accounts/login.html",
+                    context={"form":form})
     print(form.errors)
-
 
 def logout_request(request):
     logout(request)
@@ -68,28 +64,40 @@ def logout_request(request):
 
 def profile(request):
     form = {'user': request.user}
-    return render(request=request,
-                  template_name="accounts/profile.html",
-                  context={"form": form})
-
+    return render(request = request,
+                template_name = "accounts/profile.html",
+                context={"form":form})
 
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user.userprofile)
-
+        form = EditProfileForm(request.POST, instance = request.user.userprofile)
+    
         if form.is_valid():
-            form.save()
+            form.save()                   
             return redirect('profile')
 
     form = EditProfileForm(instance=request.user)
-    return render(request=request,
-                  template_name="accounts/edit_profile.html",
-                  context={"form": form})
+    return render(request = request,
+            template_name = "accounts/edit_profile.html",
+            context={"form":form})
 
 
 def fqf(request):
     if request.method == 'POST':
-        form = FuelQuoteForm(request.POST, user=request.user)
+        form = FuelQuoteForm(request.POST, user = request.user)
+        allObj = UserFuelForm.objects.all()
+        userObj = UserFuelForm.objects.filter(user = request.user)
+        if UserFuelForm.objects.filter(user = request.user).exists():
+            # at least one object satisfying query exists
+            print(userObj)
+            PricingModule.RateHistoryFactor = 1.0
+        else:
+            PricingModule.RateHistoryFactor = 2.0
+            print("user does not have any history")
+            # no object satisfying query exists
+        print(allObj)
+        print(userObj)
+
 
         if form.is_valid():
             form.save()
@@ -103,19 +111,6 @@ def fqf(request):
                   context={"form": form})
 
 
-#def fuelhistory(request):
-   # if request.method == 'POST':
-       # form =
-   # return render(request, 'accounts/fuelhistory.html')
-
 def fuelhistory(request):
-    clientInfo = UserProfile.objects.all()
-    fuelHistory = UserFuelForm.objects.all()
-
-    args = {'UserProfile': UserProfile, 'fuelHistory': fuelHistory}
-    print(clientInfo)
-    print(fuelHistory)
-
-    return render(request, 'accounts/fuelhistory.html', args)
-
+    return render(request, 'accounts/fuelhistory.html')
 

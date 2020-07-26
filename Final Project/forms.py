@@ -58,12 +58,14 @@ class FuelQuoteForm(forms.ModelForm):
         self.fields['user'].initial = self.user
         self.fields["deliveryAddress"].initial = self.user.userprofile.Address1
         self.fields["suggPrice"].initial = PricingModule.CurrentPrice + PricingModule.Margin
-        self.fields["total"].initial = (PricingModule.CurrentPrice + PricingModule.Margin) * UserFuelForm.gallsRequested
+        self.fields["total"].initial = (PricingModule.CurrentPrice + PricingModule.Margin) * PricingModule.GallonsRequestedFactor
         self.fields['deliveryAddress'].disabled = True
         self.fields['suggPrice'].disabled = True
         self.fields['total'].disabled = True
 
         #self.fields['deliveryDate'] =  forms.DateField(input_formats=['%m/%d/%y'])
+
+        
 
 
 

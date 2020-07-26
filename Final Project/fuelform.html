@@ -1,0 +1,26 @@
+{%extends 'base.html' %}
+
+{% block head %}
+    <title>Fuel Quote Form</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container" >
+<form method="POST">
+    <div class="jumbotron">
+
+        {% csrf_token %}
+        {{form.as_p}}
+
+
+        <button type="submit">Submit</button>
+        <button type="button">Get Quote</button>
+
+    </div>
+
+</form>
+
+</div>
+
+{% endblock %}
