@@ -50,20 +50,46 @@ class FuelQuoteForm(forms.ModelForm):
         )
         widgets = {
         'deliveryDate': forms.DateInput(format=('%m/%d/%Y'), attrs={ 'placeholder':'Select a date', 'type':'date'}),
-        }   
+        }
+
+    # def clean_suggPrice(self):
+    #     galls = self.cleaned_data['gallsRequested']
+    #     user =  self.fields['user'].initial
+    #     module = PricingModule(galls, user)
+    #     sugg_price = round(module.margin(), 3)
+    #     self.fields['suggPrice'].initial = sugg_price
+    #     print("SUGG", sugg_price)
+    #     return sugg_price
+
+    # def clean_total(self):
+    #     galls = self.cleaned_data['gallsRequested']
+    #     user =  self.fields['user'].initial
+    #     module = PricingModule(galls, user)
+    #     total = round(module.calculate(), 3)
+    #     self.fields['total'].initial = total
+    #     print("total", total)
+    #     return total
+    
+    def set_total(self):
+        galls = self.cleaned_data['gallsRequested']
+        user =  self.fields['user'].initial
+        module = PricingModule(galls, user)
+        self.cleaned_data['suggPrice'] = round(module.margin(), 3)
+        self.fields['total'].initial = round(module.calculate(), 3)
+        self.cleaned_data['total'] = round(module.calculate(), 3)
+
 
     def __init__(self, *args, **kws):
         self.user = kws.pop('user')
         super().__init__(*args, **kws)
         self.fields['user'].initial = self.user
         self.fields["deliveryAddress"].initial = self.user.userprofile.Address1
-        self.fields["suggPrice"].initial = PricingModule.CurrentPrice + PricingModule.Margin
-        self.fields["total"].initial = (PricingModule.CurrentPrice + PricingModule.Margin) * PricingModule.GallonsRequestedFactor
+        self.fields["suggPrice"].initial = 3.0
+        self.fields["total"].initial = 0.0
+        self.fields["gallsRequested"].initial = 1.0
         self.fields['deliveryAddress'].disabled = True
         self.fields['suggPrice'].disabled = True
         self.fields['total'].disabled = True
-
-        #self.fields['deliveryDate'] =  forms.DateField(input_formats=['%m/%d/%y'])
 
         
 

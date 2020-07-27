@@ -91,34 +91,20 @@ body {font-family: "Lato", sans-serif;}
     <th>Total Due</th>
     <th>Delivery Adress</th>
     </tr>
-    <tr>
 
-    
+      {% for entry in history %}
+      <tr>
       <td>{{user.userprofile.Full_Name}}</td>
-      <td>{{user.userfuelform.deliveryDate}}</td>
-      <td>{{user.userfuelform.gallsRequested}}</td>
-      <td>$1 per Gallon</td>
-      <td>$50</td>
+      <td>{{entry.deliveryDate}}</td>
+      <td>{{entry.gallsRequested}}</td>
+      <td>{{entry.suggPrice}}</td>
+      <td>{{entry.total}}</td>
       <td>{{user.userprofile.Address1}}</td>
-    </tr>
-    <tr>
+      </tr>
+
+      {% endfor %}
 
 
-    <td>Maria Rios</td>
-      <td>05/13/2020</td>
-      <td>100</td>
-    <td>$1 per Gallon</td>
-      <td>$100</td>
-      <td>3030 Dunvale Rd Houston, TX 77063</td>
-    </tr>
-    <tr>
-      <td>Robin Red</td>
-      <td>06/15/2020</td>
-      <td>150</td>
-    <td>$1 per Gallon</td>
-      <td>$150</td>
-      <td>3030 Dunvale Rd Houston, TX 77063</td>
-    </tr>
     
 </table>
 

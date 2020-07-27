@@ -44,12 +44,12 @@ post_save.connect(create_profile, sender= User)
 
 class UserFuelForm(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="related user")
-    gallsRequested = models.IntegerField('Gallons Requested', default=0)
+    gallsRequested = models.IntegerField('Gallons Requested', default=1)
     deliveryAddress = models.CharField('Delivery Address', max_length=100, default='', blank= True)
 
     deliveryDate =  models.DateField()
     suggPrice = models.IntegerField('Suggested Price', default=0)
-    total = models.DecimalField('Total (Price * Gallons)', decimal_places=9,
+    total = models.DecimalField('Total (Price * Gallons)', decimal_places=15,
                                 max_digits=10000, default=Decimal('0.0000'))  # total will be calculated by (suggPrice*gallsRequested)
   
     def __str__(self):
@@ -58,35 +58,47 @@ class UserFuelForm(models.Model):
  
 
 
-class PricingModule(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="related user")
+class PricingModule:
+    def __init__(self, galls_req, user):
+        self.current_price = 1.50
+        self.galls_requested = galls_req
+        self.user = user
 
-    CurrentPrice = 1.50
+    def state_factor(self):
+        if self.user.userprofile.State == 'TX':
+            return 0.02
+        else:
+            return 0.04
 
-    LocationFactor = UserProfile.State
-    if UserProfile.State == 'TX':
-        value = 2
-    else:
-        value = 5
-    LocationFactor = value
+    def rate_history_factor(self):
+        doesHistoryExist = UserFuelForm.objects.filter(user=self.user).exists()
+
+        if doesHistoryExist:
+            return 0.01 
+        else:
+            return 0.0
+
+    def galls_requested_factor(self):
+        if int(self.galls_requested) > 1000:
+            return 0.2
+        else:
+            return 0.3
+
+    def margin(self):
+        location_factor = self.state_factor()
+        rate_history_factor = self.rate_history_factor()
+        galls_requested_factor = self.galls_requested_factor()
+
+        company_profit_factor = 0.10
+
+        margin = self.current_price * (location_factor - rate_history_factor + galls_requested_factor + company_profit_factor)
+
+        return margin
     
-    RateHistoryFactor = 1 #test- hardcoded
+    def calculate(self):
+        
+        result = self.margin() * self.galls_requested
+        return result
 
-
-   # GallonsRequestedFactor = UserFuelForm.gallsRequested
-    GallonsRequestedFactor = 10 #hard coded 
-    if GallonsRequestedFactor > 1000:
-        value = 2
-    else:
-        value = 3
-    GallonsRequestedFactor = value
-
-    CompanyProfitFactor = 0
-
-    Margin = CurrentPrice * (LocationFactor - RateHistoryFactor + GallonsRequestedFactor + CompanyProfitFactor)
-
-    def __str__(self):
-        return self.user.username
-    
 
 
