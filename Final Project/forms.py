@@ -56,10 +56,12 @@ class FuelQuoteForm(forms.ModelForm):
         galls = self.cleaned_data['gallsRequested']
         user =  self.fields['user'].initial
         module = PricingModule(galls, user)
+
         sugg_price = round(module.margin(), 3)
-        self.fields['suggPrice'].initial = sugg_price
+
+        self.fields['suggPrice'].initial = sugg_price+1.5
         print("SUGG", sugg_price)
-        return sugg_price
+        return sugg_price+1.5
 
     def clean_total(self):
         galls = self.cleaned_data['gallsRequested']
@@ -88,7 +90,7 @@ class FuelQuoteForm(forms.ModelForm):
         super().__init__(*args, **kws)
         self.fields['user'].initial = self.user
         self.fields["deliveryAddress"].initial = self.user.userprofile.Address1
-        self.fields["suggPrice"].initial = 3.0
+        self.fields["suggPrice"].initial = 0.0
         self.fields["total"].initial = 0.0
         self.fields["gallsRequested"].initial = 1.0
         self.fields['deliveryAddress'].disabled = True

@@ -48,9 +48,12 @@ class UserFuelForm(models.Model):
     deliveryAddress = models.CharField('Delivery Address', max_length=100, default='', blank= True)
 
     deliveryDate =  models.DateField()
-    suggPrice = models.IntegerField('Suggested Price', default=0)
-    total = models.DecimalField('Total (Price * Gallons)', decimal_places=15,
-                                max_digits=10000, default=Decimal('0.0000'))  # total will be calculated by (suggPrice*gallsRequested)
+    # suggPrice = models.DecimalField('Suggested Price', decimal_places=4,
+    #                             max_digits=10000, default=Decimal('0.0000'))
+
+    suggPrice = models.IntegerField("Suggested price/gallon", default =0)
+    total = models.DecimalField('Total (Price * Gallons)', decimal_places=5,
+                                max_digits=100000, default=Decimal('0.00000'))  # total will be calculated by (suggPrice*gallsRequested)
   
     def __str__(self):
         return self.user.username
@@ -80,24 +83,32 @@ class PricingModule:
 
     def galls_requested_factor(self):
         if int(self.galls_requested) > 1000:
-            return 0.2
+            return 0.02
         else:
-            return 0.3
+            return 0.03
 
     def margin(self):
         location_factor = self.state_factor()
         rate_history_factor = self.rate_history_factor()
         galls_requested_factor = self.galls_requested_factor()
 
-        company_profit_factor = 0.10
+        company_profit_factor = .10
 
         margin = self.current_price * (location_factor - rate_history_factor + galls_requested_factor + company_profit_factor)
 
-        return margin
+        print("location_factor", location_factor)
+        print("ratehistory_factor", rate_history_factor)
+        print("gallrequested_factor", galls_requested_factor)
+
+        rounded_margin = round(margin, 3)
+
+        print("rounded margin", rounded_margin)
+
+        return rounded_margin
     
     def calculate(self):
         
-        result = self.margin() * self.galls_requested
+        result = (self.margin() + self.current_price) * self.galls_requested
         return result
 
 
