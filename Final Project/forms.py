@@ -52,31 +52,35 @@ class FuelQuoteForm(forms.ModelForm):
         'deliveryDate': forms.DateInput(format=('%m/%d/%Y'), attrs={ 'placeholder':'Select a date', 'type':'date'}),
         }
 
-    # def clean_suggPrice(self):
-    #     galls = self.cleaned_data['gallsRequested']
-    #     user =  self.fields['user'].initial
-    #     module = PricingModule(galls, user)
-    #     sugg_price = round(module.margin(), 3)
-    #     self.fields['suggPrice'].initial = sugg_price
-    #     print("SUGG", sugg_price)
-    #     return sugg_price
+    def clean_suggPrice(self):
+        galls = self.cleaned_data['gallsRequested']
+        user =  self.fields['user'].initial
+        module = PricingModule(galls, user)
+        sugg_price = round(module.margin(), 3)
+        self.fields['suggPrice'].initial = sugg_price
+        print("SUGG", sugg_price)
+        return sugg_price
 
-    # def clean_total(self):
+    def clean_total(self):
+        galls = self.cleaned_data['gallsRequested']
+        user =  self.fields['user'].initial
+        module = PricingModule(galls, user)
+        total = round(module.calculate(), 3)
+        self.fields['total'].initial = total
+        print("total", total)
+        return total
+    
+    # def set_total(self):
     #     galls = self.cleaned_data['gallsRequested']
     #     user =  self.fields['user'].initial
     #     module = PricingModule(galls, user)
+    #     self.cleaned_data['suggPrice'] = round(module.margin(), 3)
+    #     #self.fields['total'].initial = round(module.calculate(), 3)
+    #     #self.cleaned_data['total'] = round(module.calculate(), 3)
     #     total = round(module.calculate(), 3)
     #     self.fields['total'].initial = total
     #     print("total", total)
     #     return total
-    
-    def set_total(self):
-        galls = self.cleaned_data['gallsRequested']
-        user =  self.fields['user'].initial
-        module = PricingModule(galls, user)
-        self.cleaned_data['suggPrice'] = round(module.margin(), 3)
-        self.fields['total'].initial = round(module.calculate(), 3)
-        self.cleaned_data['total'] = round(module.calculate(), 3)
 
 
     def __init__(self, *args, **kws):
