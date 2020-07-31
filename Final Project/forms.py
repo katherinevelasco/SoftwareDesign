@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from .models import UserProfile, UserFuelForm, PricingModule
+from decimal import Decimal
 
 class RegistrationForm(UserCreationForm):
 
@@ -11,7 +12,6 @@ class RegistrationForm(UserCreationForm):
                 "username",
                 "password1", 
                 "password2", 
-
             )
 
     def save(self, commit=True):
@@ -38,6 +38,9 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class FuelQuoteForm(forms.ModelForm):
+    suggPrice = forms.DecimalField(max_digits = 6, decimal_places = 5)
+    total = forms.DecimalField(max_digits = 6, decimal_places = 5)
+
     class Meta:
         model = UserFuelForm
         fields = (
@@ -57,17 +60,23 @@ class FuelQuoteForm(forms.ModelForm):
         user =  self.fields['user'].initial
         module = PricingModule(galls, user)
 
-        sugg_price = round(module.margin(), 3)
+        sugg_price = module.margin()
+        print("SUGG1", sugg_price)
 
-        self.fields['suggPrice'].initial = sugg_price+1.5
-        print("SUGG", sugg_price)
-        return sugg_price+1.5
+        final_sugg_price = Decimal(sugg_price + 1.5)
+        round_sugg_price = round(final_sugg_price, 3)
+
+        self.fields['suggPrice'].initial = round_sugg_price
+
+        print("SUGG2", round_sugg_price)
+        return round_sugg_price
 
     def clean_total(self):
         galls = self.cleaned_data['gallsRequested']
         user =  self.fields['user'].initial
         module = PricingModule(galls, user)
-        total = round(module.calculate(), 3)
+        dec_total = Decimal(module.calculate())
+        total = round(dec_total, 3)
         self.fields['total'].initial = total
         print("total", total)
         return total
