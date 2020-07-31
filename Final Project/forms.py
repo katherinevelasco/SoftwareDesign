@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from .models import UserProfile, UserFuelForm, PricingModule
 from decimal import Decimal
-
 class RegistrationForm(UserCreationForm):
 
     class Meta:
@@ -12,6 +11,7 @@ class RegistrationForm(UserCreationForm):
                 "username",
                 "password1", 
                 "password2", 
+
             )
 
     def save(self, commit=True):
@@ -38,9 +38,6 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class FuelQuoteForm(forms.ModelForm):
-    suggPrice = forms.DecimalField(max_digits = 6, decimal_places = 5)
-    total = forms.DecimalField(max_digits = 6, decimal_places = 5)
-
     class Meta:
         model = UserFuelForm
         fields = (
@@ -64,8 +61,7 @@ class FuelQuoteForm(forms.ModelForm):
         print("SUGG1", sugg_price)
 
         final_sugg_price = Decimal(sugg_price + 1.5)
-        round_sugg_price = round(final_sugg_price, 3)
-
+        round_sugg_price = round(final_sugg_price, 5)
         self.fields['suggPrice'].initial = round_sugg_price
 
         print("SUGG2", round_sugg_price)

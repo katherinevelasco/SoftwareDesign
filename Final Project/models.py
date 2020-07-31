@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from decimal import Decimal
-
+from decimal import *
 # Create your models here.
 class UserProfile(models.Model):
     US_STATES = (('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'), 
@@ -48,12 +48,12 @@ class UserFuelForm(models.Model):
     deliveryAddress = models.CharField('Delivery Address', max_length=100, default='', blank= True)
 
     deliveryDate =  models.DateField()
-    # suggPrice = models.DecimalField('Suggested Price', decimal_places=4,
-    #                             max_digits=10000, default=Decimal('0.0000'))
+    suggPrice = models.DecimalField('Suggested Price', decimal_places=7,
+                                max_digits=100, default=Decimal('0.00000'))
 
-    suggPrice = models.IntegerField("Suggested price/gallon", default =0)
-    total = models.DecimalField('Total (Price * Gallons)', decimal_places=5,
-                                max_digits=100000, default=Decimal('0.00000'))  # total will be calculated by (suggPrice*gallsRequested)
+    #suggPrice = models.IntegerField("Suggested price/gallon", default =0)
+    total = models.DecimalField('Total (Price * Gallons)', decimal_places=7,
+                                max_digits=100, default=Decimal('0.00000'))  # total will be calculated by (suggPrice*gallsRequested)
   
     def __str__(self):
         return self.user.username
@@ -94,14 +94,14 @@ class PricingModule:
 
         company_profit_factor = .10
 
-        margin = self.current_price * (location_factor - rate_history_factor + galls_requested_factor + company_profit_factor)
+        margin = round((self.current_price * (location_factor - rate_history_factor + galls_requested_factor + company_profit_factor)),3)
 
         print("location_factor", location_factor)
         print("ratehistory_factor", rate_history_factor)
         print("gallrequested_factor", galls_requested_factor)
 
         rounded_margin = round(margin, 3)
-
+        print("margin", margin)
         print("rounded margin", rounded_margin)
 
         return rounded_margin
@@ -109,6 +109,7 @@ class PricingModule:
     def calculate(self):
         
         result = (self.margin() + self.current_price) * self.galls_requested
+        print("result", result)
         return result
 
 
