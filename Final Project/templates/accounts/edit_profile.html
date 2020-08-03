@@ -1,0 +1,23 @@
+{%extends 'base.html' %}
+
+{% block head %}
+    <title>EDIT_PROFILE</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container" >
+<form method="POST">
+    <div class="jumbotron">
+        {% csrf_token %}
+        {{form.as_p}}
+    
+        <button type="submit">Submit</button>
+    </div>
+
+</form>
+
+</div>
+
+{% endblock %}
+
